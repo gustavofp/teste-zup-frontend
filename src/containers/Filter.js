@@ -21,14 +21,14 @@ const styles = (theme) => ({
         flex: 1,
     },
     fab: {
-        margin: theme.spacing.unit
+        margin: theme.spacing()
     },
     formControl: {
-        margin: theme.spacing.unit * 3,
+        margin: theme.spacing(3),
         marginRight: '50px'
     },
     title: {
-        margin: theme.spacing.unit * 3,
+        margin: theme.spacing(3),
     }
 });
 class Filter extends Component {

@@ -21,7 +21,7 @@ const TableItem = props => {
 
 
 const renderData = (data, handleEdit, handleRemove, handleDone) => {
-    return data.map(i => (<TableItem item={i} handleEdit={handleEdit} handleRemove={handleRemove} handleDone={handleDone} />))
+    return data.map((i, index) => (<TableItem item={i} key={index} handleEdit={handleEdit} handleRemove={handleRemove} handleDone={handleDone} />))
 }
 
 const TableData = (props) => {

@@ -13,16 +13,18 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 
 const styles = (theme) => ({
     '@global': {
         body: {
-          backgroundColor: theme.palette.primary.main,
+            backgroundColor: theme.palette.primary.main,
         },
-      }, 
-      container: {
+    },
+    container: {
         backgroundColor: theme.palette.common.white,
-      },   
+    },
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',
@@ -57,11 +59,11 @@ class Login extends Component {
     }
 
     emailChanged(e) {
-        this.setState({ ...this.state, email: e.target.value})
+        this.setState({ ...this.state, email: e.target.value })
     }
 
     passwordChanged(e) {
-        this.setState({ ...this.state, password: e.target.value})
+        this.setState({ ...this.state, password: e.target.value })
     }
 
     render() {
@@ -69,7 +71,7 @@ class Login extends Component {
         const { email, password } = this.state;
 
         return (
-            <Container  className={classes.container} component="main" maxWidth="xs">
+            <Container className={classes.container} component="main" maxWidth="xs">
                 <CssBaseline />
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>

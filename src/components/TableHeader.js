@@ -9,20 +9,16 @@ const styles = {
     }
 }
 
-const renderData = (data) => {
-    return data.map(i => (<TableCell>{i}</TableCell>));
-}
-
 const TableHeader = (props) => {
     const { classes, title } = props;
     return (
         <TableHead>
             <TableRow>
-                <div className={classes.title}>
-                    <Typography variant="h6">
-                        { title }
+                <TableCell colSpan={3}>
+                    <Typography className={classes.title} variant="h6">
+                        {title}
                     </Typography>
-                </div>
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell>Description</TableCell>

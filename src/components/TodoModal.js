@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import Modal from '@material-ui/core/Modal';
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
@@ -10,10 +9,10 @@ import Button from '@material-ui/core/Button';
 const styles = theme => ({
     paper: {
       position: 'absolute',
-      width: theme.spacing.unit * 50,
+      width: theme.spacing(50),
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
-      padding: theme.spacing.unit * 4,
+      padding: theme.spacing(4),
       outline: 'none',
       right: '35%',
       top: '8%'
@@ -24,7 +23,7 @@ const styles = theme => ({
         transform: `translate(-50%, -50%)`,
     },
     formControl: {
-        margin: theme.spacing.unit * 3,
+        margin: theme.spacing(3),
       },
   });
 
@@ -34,10 +33,7 @@ class TodoModal extends Component {
         
         this.state = { 
             description: null,
-            id: null,
-            when: moment().format('YYYY-MM-DDTHH:mm'),
-            rememberMeWhen: moment().format('YYYY-MM-DDTHH:mm'),
-            prediction: moment().format('YYYY-MM-DDTHH:mm')
+            id: null
          }
     }
 
@@ -54,7 +50,7 @@ class TodoModal extends Component {
 
     render() { 
         const { isOpen, classes, editData, handleClose } = this.props;
-        const { when, rememberMeWhen, prediction, description, id } = editData || this.state
+        const { description } = editData || this.state
 
         return ( 
             <Modal open={isOpen} onClose={handleClose} >

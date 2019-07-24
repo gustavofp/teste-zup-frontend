@@ -53,7 +53,8 @@ class List extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.todos.data !== this.props.todos.data) {
-            this.setState({ firstTimeLoading: true })
+            this.props.todos.rawData = nextProps.todos.data;
+            this.filtersChanged(this.state.pagination, this.state.filters);
         }
 
         if (nextProps.todos.filters !== this.props.todos.filters) {
@@ -153,12 +154,7 @@ class List extends Component {
         if (todos.data.length === 0) {
             return null
         }
-
-        if (todos.data.length > 0 && firstTimeLoading) {
-            this.setState({ firstTimeLoading: false, edit: null })
-            this.filtersChanged(pagination, filters);
-        }
-
+        
         return (
             <div className={classes.paperWrapper}>
                 <Paper>
