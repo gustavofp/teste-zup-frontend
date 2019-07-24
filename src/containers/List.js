@@ -63,21 +63,9 @@ class List extends Component {
 
     handleFilters = (filters, data) => {
         let filteredData = []
-
+        console.log(filters);
         if (filters.description) {
             filteredData = data.filter(o => o.description.includes(filters.description));
-        }
-
-        if (filters.when) {
-            filteredData = data.filter(o => o.when === filters.when);
-        }
-
-        if (filters.rememberMeWhen) {
-            filteredData = data.filter(o => o.rememberMeWhen === filters.rememberMeWhen);
-        }
-
-        if (filters.prediction) {
-            filteredData = data.filter(o => o.prediction === filters.prediction);
         }
 
         if (filters.done || filters.done === false) {
