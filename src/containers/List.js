@@ -57,44 +57,57 @@ class List extends Component {
         }
 
         if (nextProps.todos.filters !== this.props.todos.filters) {
-            this.paginationChanged(this.state.pagination, nextProps.todos.filters);
+            this.filtersChanged(this.state.pagination, nextProps.todos.filters);
         }
     }
 
-    handleFilters = (filters, data) => {
+    handleFiltersChange = (filters, data) => {
+        console.log(data)
         let filteredData = []
-        console.log(filters);
         if (filters.description) {
-            filteredData = data.filter(o => o.description.includes(filters.description));
+            filteredData = data.filter(o => {
+                const description = o.description.toUpperCase();
+                return description.includes(filters.description.toUpperCase())
+            });
         }
 
         if (filters.done || filters.done === false) {
-            filteredData = data.filter(o => o.done == filters.done);
+            filteredData = data.filter(o => o.done === filters.done);
         }
+        console.log(filteredData);
 
         return filteredData;
     }
 
-    paginationChanged = (options, filters) => {
-        const { page, rowsPerPage } = options;
-        const todos = filters ? this.handleFilters(filters, this.props.todos.rawData) : this.props.todos.rawData;
-        const data = todos.slice(page * rowsPerPage, (page + 1) * rowsPerPage)
+    filtersChanged = (pagination, filters) => {
+        const { page, rowsPerPage } = pagination;
+        const todos = this.hasFilters(filters) ? this.handleFiltersChange(filters, this.props.todos.rawData) : this.props.todos.rawData;
+        const data = this.handlePaginationChange(todos, page, rowsPerPage);
 
         this.setState({ data });
+    }
+
+    hasFilters = (filters) => {
+        console.log(filters)
+        return (filters && filters.description && filters.description !== '') || (filters && filters.done !== null)
+    }
+
+    handlePaginationChange = (data, page, rowsPerPage) => {
+        return data.slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
 
     handleChangePage = (e, page) => {
         if (!e) return;
         this.state.pagination.page = page;
 
-        this.paginationChanged(this.state.pagination, this.props.todos.filter);
+        this.filtersChanged(this.state.pagination, this.props.todos.filter);
     }
 
     handleChangeRowsPerPage = (e) => {
         if (!e) return;
         this.state.pagination.rowsPerPage = e.target.value;
 
-        this.paginationChanged(this.state.pagination, this.props.todos.filter);
+        this.filtersChanged(this.state.pagination, this.props.todos.filter);
     }
 
     handleEdit = (item) => {
@@ -141,7 +154,7 @@ class List extends Component {
 
         if (todos.data.length > 0 && firstTimeLoading) {
             this.setState({ firstTimeLoading: false, edit: null })
-            this.paginationChanged(pagination, filters);
+            this.filtersChanged(pagination, filters);
         }
 
         return (

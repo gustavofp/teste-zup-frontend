@@ -39,17 +39,12 @@ class Filter extends Component {
     }
 
     handleDescriptionChange = (e) => {
-        this.setState({ description: e.target.value });
-
-        this.props.filterChanged({ ...this.state, description: e.target.value });
+        this.setState({ description: e.target.value }, this.props.filterChanged({ ...this.state, description: e.target.value }));
     }
 
     handleDoneChange = (e) => {
-        if (!this.state.done) {
-            this.setState({ done: true })
-        }
-
-        this.setState({ done: !this.state.done }, this.props.filterChanged({ ...this.state, done: !this.state.done }))
+        const done = !this.state.done;
+        this.setState({ done }, this.props.filterChanged({ ...this.state, done }))
     }
 
     render() {

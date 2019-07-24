@@ -10,18 +10,18 @@ import blue from '@material-ui/core/colors/blue';
 import * as serviceWorker from './serviceWorker';
 
 const theme = createMuiTheme({
-    palette: {
-      primary: indigo,
-      secondary: blue // Indigo is probably a good match with pink
-    }
-  });
+  palette: {
+    primary: indigo,
+    secondary: blue // Indigo is probably a good match with pink
+  }
+});
 ReactDOM.render(
-    <MuiThemeProvider theme={theme}>
-<Provider store={store}>
-    <App />
-</Provider>
-</MuiThemeProvider>
-, document.getElementById('root'));
+  <MuiThemeProvider theme={theme}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </MuiThemeProvider>
+  , document.getElementById('root'));
 
 
 // If you want your app to work offline and load faster, you can change
