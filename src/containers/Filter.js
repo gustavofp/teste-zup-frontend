@@ -9,6 +9,8 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import {DebounceInput} from 'react-debounce-input';
 
 const styles = (theme) => ({
@@ -30,11 +32,14 @@ const styles = (theme) => ({
     }
 });
 class Filter extends Component {
+
     constructor(props) {
         super(props);
+        // Material-Ui select only accepts string values
+        this.SELECT_FILTER_DEFAULT = "none"
         this.state = {
             description: null,
-            done: null,
+            done: this.SELECT_FILTER_DEFAULT
         }
     }
 
@@ -43,8 +48,11 @@ class Filter extends Component {
     }
 
     handleDoneChange = (e) => {
-        const done = !this.state.done;
-        this.setState({ done }, this.props.filterChanged({ ...this.state, done }))
+        const { description } = this.state;
+        const doneString = e.target.value;
+        const done = (doneString === this.SELECT_FILTER_DEFAULT) ? null : (doneString == 'true');
+
+        this.setState({ done: doneString }, this.props.filterChanged({ description, done }))
     }
 
     render() {
@@ -62,11 +70,20 @@ class Filter extends Component {
                     </FormControl>
                     <FormControl className={classes.formControl}>
                         <FormLabel component="legend">Done</FormLabel>
-                        <Checkbox
-                            checked={this.state.done}
+                            <Select
+                            value={this.state.done}
                             onChange={this.handleDoneChange}
-                            color="primary"
-                        />
+                            inputProps={{
+                                name: 'Done',
+                                id: 'done-select',
+                            }}
+                            >
+                            <MenuItem value={this.SELECT_FILTER_DEFAULT}>
+                                <em>None</em>
+                            </MenuItem>
+                                <MenuItem value={"true"}>True</MenuItem>
+                                <MenuItem value={"false"}>False</MenuItem>
+                            </Select>
                     </FormControl>
                 </Paper>
             </div>

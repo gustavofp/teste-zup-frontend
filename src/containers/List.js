@@ -63,14 +63,18 @@ class List extends Component {
 
     handleFiltersChange = (filters, data) => {
         let filteredData = []
-        if (filters.description) {
+        if (filters.description === "" && (filters.done === "none" || filters.done === null)) {
+            return data;
+        }
+        
+        if (filters.description && filters.description !== "") {
             filteredData = data.filter(o => {
                 const description = o.description.toUpperCase();
                 return description.includes(filters.description.toUpperCase())
             });
         }
 
-        if (filters.done || filters.done === false) {
+        if ((filters.done || filters.done === false) && filters.done !== "none") {
             filteredData = data.filter(o => o.done === filters.done);
         }
 
