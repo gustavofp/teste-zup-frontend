@@ -62,7 +62,6 @@ class List extends Component {
     }
 
     handleFiltersChange = (filters, data) => {
-        console.log(data)
         let filteredData = []
         if (filters.description) {
             filteredData = data.filter(o => {
@@ -74,7 +73,6 @@ class List extends Component {
         if (filters.done || filters.done === false) {
             filteredData = data.filter(o => o.done === filters.done);
         }
-        console.log(filteredData);
 
         return filteredData;
     }
@@ -88,7 +86,6 @@ class List extends Component {
     }
 
     hasFilters = (filters) => {
-        console.log(filters)
         return (filters && filters.description && filters.description !== '') || (filters && filters.done !== null)
     }
 
@@ -96,18 +93,18 @@ class List extends Component {
         return data.slice(page * rowsPerPage, (page + 1) * rowsPerPage)
     }
 
-    handleChangePage = (e, page) => {
+    handleChangePage = (e, page = 0) => {
         if (!e) return;
-        this.state.pagination.page = page;
 
-        this.filtersChanged(this.state.pagination, this.props.todos.filter);
+        const pagination = { ...this.state.pagination, page}
+        this.setState({ pagination }, this.filtersChanged(pagination, this.props.todos.filter))
     }
 
     handleChangeRowsPerPage = (e) => {
         if (!e) return;
-        this.state.pagination.rowsPerPage = e.target.value;
 
-        this.filtersChanged(this.state.pagination, this.props.todos.filter);
+        const pagination = { ...this.state.pagination, rowsPerPage: e.target.value }
+        this.setState({ pagination }, this.filtersChanged(pagination, this.props.todos.filter))
     }
 
     handleEdit = (item) => {
@@ -145,7 +142,7 @@ class List extends Component {
 
     render() {
         const { classes, todos, filters } = this.props;
-        const { headers, data, pagination, isModalOpen, firstTimeLoading, edit } = this.state;
+        const { data, pagination, isModalOpen, firstTimeLoading, edit } = this.state;
         const { page, rowsPerPage } = pagination;
 
         if (todos.data.length === 0) {
