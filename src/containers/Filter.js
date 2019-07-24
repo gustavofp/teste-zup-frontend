@@ -44,7 +44,8 @@ class Filter extends Component {
     }
 
     handleDescriptionChange = (e) => {
-        this.setState({ description: e.target.value }, this.props.filterChanged({ ...this.state, description: e.target.value }));
+        const done = (this.state.done === this.SELECT_FILTER_DEFAULT) ? null : (this.state.done == 'true');
+        this.setState({ description: e.target.value }, this.props.filterChanged({ done, description: e.target.value }));
     }
 
     handleDoneChange = (e) => {

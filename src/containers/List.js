@@ -62,6 +62,7 @@ class List extends Component {
     }
 
     handleFiltersChange = (filters, data) => {
+        // Algumas gambs pra conseguir lidar com a limitação de não poder usar boolean no select
         let filteredData = []
         if (filters.description === "" && (filters.done === "none" || filters.done === null)) {
             return data;
